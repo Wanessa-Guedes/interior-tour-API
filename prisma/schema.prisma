@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum attraction_type {
+  restaurant
+  attraction
+  event
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  email           String   @unique
+  passwordHash    String
+  profile_picture String
+  user_name       String   @unique
+  creat_at        DateTime @default(now())
+
+  comments  Comment[]
+  likes     Like[]
+  favorites Favorite[]
+  visits    Visited[]
+
+  @@map("users")
+}
+
+model State {
+  id       Int      @id @default(autoincrement())
+  name     String
+  creat_at DateTime @default(now())
+
+  cities City[]
+
+  @@map("states")
+}
+
+model City {
+  id          Int      @id @default(autoincrement())
+  name        String
+  short_call  String
+  description String
+  url_picture String
+  creat_at    DateTime @default(now())
+
+  stateId Int
+  state   State @relation(fields: [stateId], references: [id])
+
+  comments    Comment[]
+  likes       Like[]
+  favorites   Favorite[]
+  visits      Visited[]
+  attractions Attraction[]
+
+  @@map("cities")
+}
+
+model Comment {
+  id       Int      @id @default(autoincrement())
+  comment  String
+  creat_at DateTime @default(now())
+
+  userId Int
+  cityId Int
+
+  user User @relation(fields: [userId], references: [id])
+  city City @relation(fields: [cityId], references: [id])
+
+  @@map("comments")
+}
+
+model Like {
+  id       Int      @default(autoincrement())
+  creat_at DateTime @default(now())
+
+  userId Int
+  cityId Int
+
+  user User @relation(fields: [userId], references: [id])
+  city City @relation(fields: [cityId], references: [id])
+
+  @@id([userId, cityId])
+  @@map("likes")
+}
+
+model Favorite {
+  id       Int      @default(autoincrement())
+  creat_at DateTime @default(now())
+
+  userId Int
+  cityId Int
+
+  user User @relation(fields: [userId], references: [id])
+  city City @relation(fields: [cityId], references: [id])
+
+  @@id([userId, cityId])
+  @@map("favorites")
+}
+
+model Visited {
+  id       Int      @default(autoincrement())
+  creat_at DateTime @default(now())
+
+  userId Int
+  cityId Int
+
+  user User @relation(fields: [userId], references: [id])
+  city City @relation(fields: [cityId], references: [id])
+
+  @@id([userId, cityId])
+  @@map("visits")
+}
+
+model Attraction_type {
+  id          Int             @id @default(autoincrement())
+  type        attraction_type
+  description String
+  creat_at    DateTime        @default(now())
+
+  attractions Attraction[]
+
+  @@map("attractions_type")
+}
+
+model Attraction {
+  id       Int      @id @default(autoincrement())
+  name     String
+  creat_at DateTime @default(now())
+
+  cityId Int
+  typeId Int
+
+  city City            @relation(fields: [cityId], references: [id])
+  type Attraction_type @relation(fields: [typeId], references: [id])
+
+  @@map("attractions")
+}

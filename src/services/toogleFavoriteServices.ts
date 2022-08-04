@@ -23,7 +23,14 @@ async function postUnfavorite(cityId: number, userId: number) {
   await toogleFavoriteRespoitory.postUnfavorites(cityId, userId);
 }
 
+async function getFavoriteCities(userId: number) {
+  const cities = await toogleFavoriteRespoitory.getFavoriteCities(userId);
+
+  return cities;
+}
+
 export const toogleFavoriteService = {
   postFavorite,
   postUnfavorite,
+  getFavoriteCities,
 };

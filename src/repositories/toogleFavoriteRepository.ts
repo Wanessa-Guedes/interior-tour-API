@@ -23,8 +23,18 @@ async function findCity(cityId: number) {
   return isCityRegistered;
 }
 
+async function getFavoriteCities(userId: number) {
+  const cities = await prisma.favorite.findMany({
+    where: { userId },
+    include: { city: true },
+  });
+
+  return cities;
+}
+
 export const toogleFavoriteRespoitory = {
   postFavorites,
   findCity,
   postUnfavorites,
+  getFavoriteCities,
 };

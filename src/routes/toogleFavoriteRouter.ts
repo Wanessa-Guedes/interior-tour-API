@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  getFavoritesCities,
   postFavorite,
   postUnfavorite,
 } from "../controllers/toogleFavoriteController.js";
@@ -18,5 +19,6 @@ toogleFavoriteRouter.post(
   validateToken,
   postUnfavorite
 );
+toogleFavoriteRouter.get("/main/favorites", validateToken, getFavoritesCities);
 
 export default toogleFavoriteRouter;

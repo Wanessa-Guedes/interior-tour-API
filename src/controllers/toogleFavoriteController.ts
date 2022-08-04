@@ -20,3 +20,11 @@ export async function postUnfavorite(req: Request, res: Response) {
 
   res.sendStatus(200);
 }
+
+export async function getFavoritesCities(req: Request, res: Response) {
+  const { userInfo } = res.locals;
+
+  const cities = await toogleFavoriteService.getFavoriteCities(userInfo.userId);
+
+  res.send(cities).status(200);
+}

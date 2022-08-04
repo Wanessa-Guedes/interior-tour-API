@@ -28,11 +28,21 @@ export async function getCityComments(req: Request, res: Response) {
 }
 
 export async function updateComment(req: Request, res: Response) {
+  const { userInfo } = res.locals;
   const commentId = +req.params.commentId;
 
   const { comment } = req.body;
 
-  await commentsService.updateComment(commentId, comment);
+  await commentsService.updateComment(commentId, comment, userInfo.userId);
+
+  res.sendStatus(200);
+}
+
+export async function deleteComment(req: Request, res: Response) {
+  const { userInfo } = res.locals;
+  const commentId = +req.params.commentId;
+
+  await commentsService.deleteComment(commentId, userInfo.userId);
 
   res.sendStatus(200);
 }

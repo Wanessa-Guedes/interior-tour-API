@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  deleteComment,
   getCityComments,
   insertComments,
   updateComment,
@@ -22,6 +23,11 @@ commentsRouter.put(
   validateToken,
   schemaValidator(commentSchema.insertCommentSchema),
   updateComment
+);
+commentsRouter.delete(
+  "/infocity/delete/:commentId",
+  validateToken,
+  deleteComment
 );
 
 export default commentsRouter;

@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { CreateComment } from "../interfaces/createData.js";
 import { commentsRepository } from "../repositories/commentsRepository.js";
 
@@ -28,7 +29,11 @@ async function getCityComments(cityId: number) {
   return comments;
 }
 
-async function updateComment(commentId: number, comment: string) {
+async function updateComment(
+  commentId: number,
+  comment: string,
+  userId: number
+) {
   const isComment = await commentsRepository.findComment(commentId);
   if (!isComment) {
     throw {
@@ -36,12 +41,51 @@ async function updateComment(commentId: number, comment: string) {
       message: "Comment do not exist!",
     };
   }
+  let commentBelongsToUser = false;
+  const comments = await commentsRepository.getComments(userId);
+  comments.map((item) => {
+    if (item.id === commentId) {
+      commentBelongsToUser = true;
+    }
+  });
+  if (commentBelongsToUser) {
+    await commentsRepository.updateComment(commentId, comment);
+  } else {
+    throw {
+      type: "unauthorized",
+      message: "Comment do not belongs to user!",
+    };
+  }
+}
 
-  await commentsRepository.updateComment(commentId, comment);
+async function deleteComment(commentId: number, userId: number) {
+  const isComment = await commentsRepository.findComment(commentId);
+  if (!isComment) {
+    throw {
+      type: "not_found",
+      message: "Comment do not exist!",
+    };
+  }
+  let commentBelongsToUser = false;
+  const comments = await commentsRepository.getComments(userId);
+  comments.map((item) => {
+    if (item.id === commentId) {
+      commentBelongsToUser = true;
+    }
+  });
+  if (commentBelongsToUser) {
+    await commentsRepository.deleteComment(commentId);
+  } else {
+    throw {
+      type: "unauthorized",
+      message: "Comment do not belongs to user!",
+    };
+  }
 }
 
 export const commentsService = {
   insertComment,
   getCityComments,
   updateComment,
+  deleteComment,
 };

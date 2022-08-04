@@ -23,8 +23,17 @@ async function findCity(cityId: number) {
   return isCityRegistered;
 }
 
+async function getComments(userId: number) {
+  const comments = await prisma.comment.findMany({ where: { userId } });
+  return comments;
+}
+
 async function updateComment(commentId: number, comment: string) {
   await prisma.comment.update({ where: { id: commentId }, data: { comment } });
+}
+
+async function deleteComment(commentId: number) {
+  await prisma.comment.delete({ where: { id: commentId } });
 }
 
 async function findComment(commentId: number) {
@@ -41,4 +50,6 @@ export const commentsRepository = {
   findCity,
   updateComment,
   findComment,
+  deleteComment,
+  getComments,
 };

@@ -28,7 +28,20 @@ async function getCityComments(cityId: number) {
   return comments;
 }
 
+async function updateComment(commentId: number, comment: string) {
+  const isComment = await commentsRepository.findComment(commentId);
+  if (!isComment) {
+    throw {
+      type: "not_found",
+      message: "Comment do not exist!",
+    };
+  }
+
+  await commentsRepository.updateComment(commentId, comment);
+}
+
 export const commentsService = {
   insertComment,
   getCityComments,
+  updateComment,
 };

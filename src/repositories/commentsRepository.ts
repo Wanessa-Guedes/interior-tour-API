@@ -23,8 +23,22 @@ async function findCity(cityId: number) {
   return isCityRegistered;
 }
 
+async function updateComment(commentId: number, comment: string) {
+  await prisma.comment.update({ where: { id: commentId }, data: { comment } });
+}
+
+async function findComment(commentId: number) {
+  const isComment = await prisma.comment.findUnique({
+    where: { id: commentId },
+  });
+
+  return isComment;
+}
+
 export const commentsRepository = {
   insertComment,
   getCityComments,
   findCity,
+  updateComment,
+  findComment,
 };

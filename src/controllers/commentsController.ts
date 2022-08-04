@@ -26,3 +26,13 @@ export async function getCityComments(req: Request, res: Response) {
 
   res.send(comments).status(200);
 }
+
+export async function updateComment(req: Request, res: Response) {
+  const commentId = +req.params.commentId;
+
+  const { comment } = req.body;
+
+  await commentsService.updateComment(commentId, comment);
+
+  res.sendStatus(200);
+}

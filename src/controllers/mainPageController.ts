@@ -7,7 +7,9 @@ export async function getCities(req: Request, res: Response) {
 }
 
 export async function getCityAndUser(req: Request, res: Response) {
-  const id = +req.params;
-  const infoCityAndUser = await mainPageServices.getCityAndUser(id);
+  const { userInfo } = res.locals;
+  const infoCityAndUser = await mainPageServices.getCityAndUser(
+    userInfo.userId
+  );
   res.send(infoCityAndUser).status(200);
 }

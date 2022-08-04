@@ -17,11 +17,11 @@ async function getCityAndUser(id: number) {
     where: { userId: id },
     include: { city: true },
   });
-  const favorite = await prisma.like.findMany({
+  const favorite = await prisma.favorite.findMany({
     where: { userId: id },
     include: { city: true },
   });
-  const visited = await prisma.like.findMany({
+  const visited = await prisma.visited.findMany({
     where: { userId: id },
     include: { city: true },
   });

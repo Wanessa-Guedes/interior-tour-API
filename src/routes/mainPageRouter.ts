@@ -8,6 +8,6 @@ import { validateToken } from "../middlewares/tokenValidator.js";
 const mainPageRouter = Router();
 
 mainPageRouter.get("/main", getCities);
-mainPageRouter.get("/main/:id", validateToken, getCityAndUser);
+mainPageRouter.get("/main/reg", validateToken, getCityAndUser);
 
 export default mainPageRouter;

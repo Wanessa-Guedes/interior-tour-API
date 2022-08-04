@@ -18,3 +18,11 @@ export async function insertComments(req: Request, res: Response) {
 
   res.sendStatus(201);
 }
+
+export async function getCityComments(req: Request, res: Response) {
+  const cityId = +req.params.cityId;
+
+  const comments = await commentsService.getCityComments(cityId);
+
+  res.send(comments).status(200);
+}

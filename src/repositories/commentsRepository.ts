@@ -9,6 +9,22 @@ async function insertComment(commentData: CreateComment) {
   });
 }
 
+async function getCityComments(cityId: number) {
+  const comments = await prisma.comment.findMany({ where: { cityId } });
+
+  return comments;
+}
+
+async function findCity(cityId: number) {
+  const isCityRegistered = await prisma.city.findUnique({
+    where: { id: cityId },
+  });
+
+  return isCityRegistered;
+}
+
 export const commentsRepository = {
   insertComment,
+  getCityComments,
+  findCity,
 };

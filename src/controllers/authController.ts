@@ -20,7 +20,7 @@ export async function signIn(req: Request, res: Response) {
     email: req.body.email,
     passwordHash: req.body.password,
   };
-  const token = await authService.signIn(userInfo);
+  const infosUser = await authService.signIn(userInfo);
 
-  res.status(200).send({ token });
+  res.status(200).send({ token: infosUser.token, id: infosUser.user.id });
 }

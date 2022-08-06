@@ -43,7 +43,7 @@ async function signIn(userData: CreteInfoSignIn) {
   const secretKey = process.env.JWT_SECRET_KEY;
   const token = jwt.sign({ id: user.id, email: user.email }, secretKey);
 
-  return token;
+  return { token, user };
 }
 
 export const authService = {

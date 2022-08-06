@@ -3,7 +3,7 @@ import { mainPageServices } from "../services/mainPageservice.js";
 
 export async function getCities(req: Request, res: Response) {
   const cities = await mainPageServices.getCities();
-  res.send({ cities }).status(200);
+  res.send(cities).status(200);
 }
 
 export async function getCityAndUser(req: Request, res: Response) {

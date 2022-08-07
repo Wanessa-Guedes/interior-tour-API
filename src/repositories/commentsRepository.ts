@@ -10,7 +10,12 @@ async function insertComment(commentData: CreateComment) {
 }
 
 async function getCityComments(cityId: number) {
-  const comments = await prisma.comment.findMany({ where: { cityId } });
+  const comments = await prisma.comment.findMany({
+    where: { cityId },
+    include: {
+      user: true,
+    },
+  });
 
   return comments;
 }

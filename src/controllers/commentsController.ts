@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { Request, Response } from "express";
 import { commentsService } from "../services/commentsServices.js";
 
@@ -23,6 +24,10 @@ export async function getCityComments(req: Request, res: Response) {
   const cityId = +req.params.cityId;
 
   const comments = await commentsService.getCityComments(cityId);
+
+  comments.map((comment) => {
+    delete comment.user.passwordHash;
+  });
 
   res.send(comments).status(200);
 }

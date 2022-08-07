@@ -17,7 +17,11 @@ commentsRouter.post(
   schemaValidator(commentSchema.insertCommentSchema),
   insertComments
 );
-commentsRouter.get("/infocity/comments/:cityId", getCityComments);
+commentsRouter.get(
+  "/infocity/comments/:cityId",
+  validateToken,
+  getCityComments
+);
 commentsRouter.put(
   "/infocity/update/:commentId",
   validateToken,

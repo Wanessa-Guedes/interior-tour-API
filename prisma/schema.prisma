@@ -119,10 +119,9 @@ model Visited {
 }
 
 model Attraction_type {
-  id          Int             @id @default(autoincrement())
-  type        attraction_type
-  description String
-  creat_at    DateTime        @default(now())
+  id       Int             @id @default(autoincrement())
+  type     attraction_type
+  creat_at DateTime        @default(now())
 
   attractions Attraction[]
 

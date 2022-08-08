@@ -13,3 +13,10 @@ export async function getCityAndUser(req: Request, res: Response) {
   );
   res.send(infoCityAndUser).status(200);
 }
+
+export async function getCitiesByState(req: Request, res: Response) {
+  const stateId = +req.params.stateId;
+  const cities = await mainPageServices.getCitiesByState(stateId);
+
+  res.send(cities).status(200);
+}

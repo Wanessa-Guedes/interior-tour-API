@@ -28,7 +28,21 @@ async function getCityAndUser(id: number) {
   return [{ cities, like, favorite, visited }];
 }
 
+async function getCitiesByState(stateId: number) {
+  const cities = await prisma.city.findMany({
+    where: {
+      stateId,
+    },
+    include: {
+      state: true,
+    },
+  });
+
+  return cities;
+}
+
 export const mainPageRepository = {
   getCities,
   getCityAndUser,
+  getCitiesByState,
 };

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import accountRouter from "./accountRouter.js";
 import authRouter from "./authRouter.js";
 import commentsRouter from "./commentsRouter.js";
 import discoverCityRouter from "./discoverCityRouter.js";
@@ -18,5 +19,6 @@ router.use(toogleVisitedRouter);
 router.use(commentsRouter);
 router.use(discoverCityRouter);
 router.use(searchBarRouter);
+router.use(accountRouter);
 
 export default router;

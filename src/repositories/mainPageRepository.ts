@@ -29,12 +29,12 @@ async function getCityAndUser(id: number) {
 }
 
 async function getCitiesByState(stateId: number) {
-  const cities = await prisma.city.findMany({
+  const cities = await prisma.state.findMany({
     where: {
-      stateId,
+      id: stateId,
     },
     include: {
-      state: true,
+      cities: true,
     },
   });
 

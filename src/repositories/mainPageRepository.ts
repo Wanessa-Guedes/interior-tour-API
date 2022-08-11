@@ -34,7 +34,13 @@ async function getCitiesByState(stateId: number) {
       id: stateId,
     },
     include: {
-      cities: true,
+      cities: {
+        include: {
+          likes: true,
+          favorites: true,
+          visits: true,
+        },
+      },
     },
   });
 

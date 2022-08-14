@@ -14,6 +14,7 @@ export function errorHanddlingMiddleware(
   }
 
   if (err.details) {
+    console.log(err.message);
     return res.status(422).send(`${err.message}`);
   }
 

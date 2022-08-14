@@ -35,6 +35,7 @@ model User {
 model State {
   id       Int      @id @default(autoincrement())
   name     String
+  initials String
   creat_at DateTime @default(now())
 
   cities City[]

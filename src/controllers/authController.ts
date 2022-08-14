@@ -6,7 +6,7 @@ export async function signUp(req: Request, res: Response) {
   const userInfo: CreateDataUser = {
     email: req.body.email,
     passwordHash: req.body.password,
-    profile_picture: req.body.profilePicture,
+    profile_picture: req.body.profilepicture,
     user_name: req.body.userName,
   };
 

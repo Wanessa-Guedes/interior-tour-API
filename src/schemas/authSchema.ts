@@ -3,9 +3,9 @@ import Joi from "joi";
 const signUpSchema = Joi.object({
   email: Joi.string().email().required(),
   userName: Joi.string().required(),
-  profilePicture: Joi.string().uri().required(),
+  profilepicture: Joi.string().uri().required(),
   password: Joi.string().required(),
-  passwordConfirmation: Joi.string().valid(Joi.ref("password")).required(),
+  confirmpassword: Joi.string().valid(Joi.ref("password")).required(),
 });
 
 const signInSchema = Joi.object({

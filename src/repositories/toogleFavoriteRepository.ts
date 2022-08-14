@@ -26,7 +26,15 @@ async function findCity(cityId: number) {
 async function getFavoriteCities(userId: number) {
   const cities = await prisma.favorite.findMany({
     where: { userId },
-    include: { city: true },
+    include: {
+      city: {
+        include: {
+          likes: true,
+          favorites: true,
+          visits: true,
+        },
+      },
+    },
   });
 
   return cities;

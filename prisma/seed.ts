@@ -564,6 +564,11 @@ async function main() {
     },
   ];
 
+  await prisma.$executeRaw`TRUNCATE TABLE states RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE cities RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "attractions_type" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE attractions RESTART IDENTITY;`;
+
   await prisma.state.createMany({ data: statesData, skipDuplicates: true });
   await prisma.city.createMany({ data: citiesData, skipDuplicates: true });
   await prisma.attraction_type.createMany({

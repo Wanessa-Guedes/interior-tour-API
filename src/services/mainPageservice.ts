@@ -5,11 +5,6 @@ async function getCities() {
   return cities;
 }
 
-async function getCityAndUser(id: number) {
-  const infoCitiesAndUser = await mainPageRepository.getCityAndUser(id);
-  return infoCitiesAndUser;
-}
-
 async function getCitiesByState(stateId: number) {
   const cities = await mainPageRepository.getCitiesByState(stateId);
   if (cities.length === 0) {
@@ -24,6 +19,5 @@ async function getCitiesByState(stateId: number) {
 
 export const mainPageServices = {
   getCities,
-  getCityAndUser,
   getCitiesByState,
 };
